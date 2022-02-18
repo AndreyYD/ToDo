@@ -14,4 +14,9 @@ media
 
 *.iml
 *.ipl
+<<<<<<< HEAD
 Lib/
+=======
+Lib/
+Scripts/
+>>>>>>> 191dc10 (initial ToDo)
