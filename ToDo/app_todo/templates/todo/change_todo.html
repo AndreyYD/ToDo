@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo</title>
+</head>
+<body>
+    {% extends 'todo/base.html' %}
+    {% block content %}
+    {{ error }}
+    <ul>
+        <form  method="POST">
+            <li>
+                {% csrf_token %}
+                {{ form.as_p }}
+            </li>
+            <li>
+                <ul>
+                    <li>
+                        {% csrf_token %}
+                        <button type="submit">Change</button>
+                    </li>
+                    <li>
+                        <button type="submit" onclick="history.back()">Back</button>
+                    </li>
+                </ul>
+            </li>
+        </form>
+    </ul>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo</title>
+</head>
+<body>
+    {% extends 'todo/base.html' %}
+    {% block content %}
+    <ul>
+        <li>
+            <h4>{{ todo.title }}</h4>
+        </li>
+        <li>
+            <h4>{{ todo.description|linebreaks }}</h4>
+        </li>
+        <li>
+            <h4>{{ todo.important }}</h4>
+        </li>
+        <li>
+            <h4>{{ todo.date_created}}</h4>
+        </li>
+        <li>
+            <h4>{{ todo.date_completed}}</h4>
+        </li>
+            <ul>
+                <li>
+                    <form  method="POST" action="{% url 'delete_todo' todo.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+                <li>
+                    <button type="submit" onclick="history.back()">Back</button>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo</title>
+</head>
+<body>
+    {% extends 'todo/base.html' %}
+    {% block content %}
+    <h4>ToDo</h4>
+    <ul>
+        {% for todo in todos %}
+        <li>
+            <a href="{% url 'todo_complete_info' todo.id %}">
+                <p>{{ todo.title }}</p>
+            </a>
+        </li>
+        <li>
+            <p>{{ todo.date_created }}</p>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <form  method="POST" action="{% url 'delete_todo' todo.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+                <li>
+                    <button type="submit" onclick="history.back()">Back</button>
+                </li>
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endblock %}
+</body>
+</html>

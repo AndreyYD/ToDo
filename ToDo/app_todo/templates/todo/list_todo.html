@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo</title>
+</head>
+<body>
+    {% extends 'todo/base.html' %}
+    {% block content %}
+    <h4>ToDo</h4>
+    <ul>
+        {% for todo in todos %}
+        <li>
+            <a href="{% url 'todo' todo.id %}">
+                {% if todo.important %}
+                <b style="color: red">{{ todo.title }}</b>
+                {% else%}
+                <p>{{ todo.title }}</p>
+                {% endif %}
+            </a>
+        </li>
+        <li>
+            <p>{{ todo.date_created }}</p>
+        </li>
+        {% endfor %}
+        <li>
+            <form action="{% url 'create_todo' %}">
+                {% csrf_token %}
+                <button type="submit">Create</button>
+            </form>
+        </li>
+    </ul>
+    {% endblock %}
+</body>
+</html>
