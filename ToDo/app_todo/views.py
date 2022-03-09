@@ -146,6 +146,7 @@ def list_todo_complete_view(request):
         'todos': todos,
     }
     return render(request, 'todo/list_todo_complete.html', context)
+
 @login_required
 def todo_complete_info_view(request, todo_pk):
     todo = get_object_or_404(ToDoModel, pk=todo_pk, user=request.user)

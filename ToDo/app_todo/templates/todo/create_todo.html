@@ -1,35 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create ToDo</title>
-</head>
-<body>
-    {% extends 'todo/base.html' %}
-    {% block content %}
-    <h2>Create ToDo</h2>
-    <h4 style="color: red">{{ error }}</h4>
+{% extends 'todo/base.html' %}
+{% block content %}
+
+<div class="container" style="margin-top: 100px">
+    <h1 class="text-danger">Create ToDo</h1>
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
     <form method="POST">
-        <ul>
-            <li>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="title" class="form-control" id="title" required>
+        </div>
+        <div class="form-group">
+            <label for="memo">Description</label>
+            <textarea name="description" class="form-control" id="memo" ></textarea>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" name="important" class="form-check-input" id="important">
+            <label class="form-check-label" for="important">Important</label>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-5">
+                <button type="submit" onclick="history.back()" class="btn btn-danger text-white">Back</button>
                 {% csrf_token %}
-                {{ form.as_p }}
-            </li>
-            <li>
-                <ul>
-                    <li>
-                        {% csrf_token %}
-                        <button type="submit">Create</button>
-                    </li>
-                    <li>
-                        <button type="submit" onclick="history.back()">Back</button>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
-
+                <button type="submit" class="btn btn-danger text-white ms-2">Create</button>
+            </div>
+        </div>
     </form>
-    {% endblock %}}
-</body>
-</html>
+</div>
+{% endblock %}}

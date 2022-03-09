@@ -1,24 +1,61 @@
-<section>
-    {% if user.is_authenticated %}
-    Logged in as {{ user.username }}
-    <a href="{% url 'create_todo' %}">Creat</a>
-    <a href="{% url 'list_todo' %}">ToDo</a>
-    <a href="{% url 'list_todo_complete' %}">Completed</a>
-    <form action="{% url 'logout' %}" method="POST">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
-    {% else %}
-    <form action="{% url 'login' %}">
-        {% csrf_token %}
-        <button type="submit">Login</button>
-    </form>
-    <form action="{% url 'signup' %}">
-        {% csrf_token %}
-        <button type="submit">Sing up</button>
-    </form>
-    {% endif %}
-</section>
-    {% block content %}
+{% load static %}
 
-    {% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo</title>
+    <link rel="stylesheet" href="{% static 'todo/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'todo/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'todo/css/bootstrap-utilities.css' %}">
+    <link rel="stylesheet" href="{% static 'todo/css/style.css' %}">
+    <script src="{% static 'todo/js/bootstrap.js' %}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-danger">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="{% url 'home' %}">ToDo</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="{% url 'list_todo' %}">Todo list</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link active text-white" aria-current="page" href="{% url 'create_todo' %}">Create</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link active text-white" aria-current="page" href="{% url 'list_todo_complete' %}">Completed</a>
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                <p class="text-white mb-1">Logged in as {{ user.username }}</p>
+                <form class="d-flex ms-2" action="{% url 'logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-light" type="submit">Logout</button>
+                </form>
+                {% else %}
+                <form class="" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <button class="btn btn-light" type="submit">Login</button>
+                </form>
+                <form class="d-flex ms-2" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    <button class="btn btn-light" type="submit">Sing up</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+</body>
+</html>

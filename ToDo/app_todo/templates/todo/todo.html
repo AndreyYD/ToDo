@@ -1,54 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ToDo</title>
-</head>
-<body>
-    {% extends 'todo/base.html' %}
-    {% block content %}
-    <ul>
-        <li>
-            <h4>{{ todo.title }}</h4>
-        </li>
-        <li>
-            <h4>{{ todo.description|linebreaks }}</h4>
-        </li>
-        <li>
-            <h4>{{ todo.important }}</h4>
-        </li>
-        <li>
-            <h4>{{ todo.date_created}}</h4>
-        </li>
-        <li>
-            <ul>
-                <li>
-                    <form action="{% url 'change_todo' todo.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Change</button>
-                    </form>
-                </li>
-                <li>
-                    <form  method="POST" action="{% url 'complete_todo' todo.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Complete</button>
-                    </form>
-                </li>
-                <li>
-                    <form  method="POST" action="{% url 'delete_todo' todo.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Delete</button>
-                    </form>
-                </li>
-                <li>
-                    <form action="{% url 'list_todo' %}">
-                        {% csrf_token %}
-                        <button type="submit">Back</button>
-                    </form>
-                </li>
-            </ul>
-        </li>
-    </ul>
+{% extends 'todo/base.html' %}
+{% block content %}
+
+<div class="container text-center" style="margin-top: 100px">
+    {% if todo.important %}
+    <h1 class="p-2 text-danger">{{ todo.title }}</h1>
+    <h4 class="p-5 text-danger">{{ todo.description|linebreaks }}</h4>
+    <h4 class="text-danger">--IMPORTANT--</h4>
+    <h4 class="p-2 text-danger">{{ todo.date_created}}</h4>
+    <div class="d-flex justify-content-center">
+        <form action="{% url 'list_todo' %}">
+            {% csrf_token %}
+            <button class="btn btn-danger text-white" type="submit">Back</button>
+        </form>
+        <form action="{% url 'change_todo' todo.id %}">
+            {% csrf_token %}
+            <button class="btn btn-danger text-white ms-2" type="submit">Change</button>
+        </form>
+        <form  method="POST" action="{% url 'complete_todo' todo.id %}">
+            {% csrf_token %}
+            <button class="btn btn-danger text-white ms-2" type="submit">Complete</button>
+        </form>
+        <form  method="POST" action="{% url 'delete_todo' todo.id %}">
+            {% csrf_token %}
+            <button class="btn btn-danger text-white ms-2" type="submit">Delete</button>
+        </form>
+    {% else %}
+    <h1 class="p-2 text-success">{{ todo.title }}</h1>
+    <h4 class="p-5 text-success">{{ todo.description|linebreaks }}</h4>
+    <h4 class="p-2 text-success">{{ todo.date_created}}</h4>
+    <div class="d-flex justify-content-center">
+        <form action="{% url 'list_todo' %}">
+            {% csrf_token %}
+            <button class="btn btn-success text-white" type="submit">Back</button>
+        </form>
+        <form action="{% url 'change_todo' todo.id %}">
+            {% csrf_token %}
+            <button class="btn btn-success text-white ms-2" type="submit">Change</button>
+        </form>
+        <form  method="POST" action="{% url 'complete_todo' todo.id %}">
+            {% csrf_token %}
+            <button class="btn btn-success text-white ms-2" type="submit">Complete</button>
+        </form>
+        <form  method="POST" action="{% url 'delete_todo' todo.id %}">
+            {% csrf_token %}
+            <button class="btn btn-success text-white ms-2" type="submit">Delete</button>
+        </form>
+    {% endif %}
+    </div>
     {% endblock %}
-</body>
-</html>
+</div>

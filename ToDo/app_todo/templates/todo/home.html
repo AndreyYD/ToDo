@@ -1,13 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ToDo</title>
-</head>
-<body>
-    {% extends 'todo/base.html' %}
-    {% block content %}
-    <h4>Home</h4>
-    {% endblock %}
-</body>
-</html>
+{% extends 'todo/base.html' %}
+{% block content %}
+
+<div class="container" style="margin-top: 250px" style="--bs-bg-opacity: .5;">
+    <h1 class="text-center text-danger p-2">Simply Your ToDos. Woo!</h1>
+    <h4 class="text-center text-danger">
+        Life is fun. But life is also busy. There's a million different things you could be doing.
+        <br>
+        But what matters is what you do. We created Todo Woo to help you make sense of all of your
+        <br>
+        opportunities and live that life that matters most to you. Your new organized life awaits.
+    </h4>
+    <form class="text-center p-3" action="{% url 'create_todo' %}">
+        {% csrf_token %}
+        <button class="btn btn-danger text-white" type="submit">Let's Start</button>
+    </form>
+</div>
+
+{% endblock %}

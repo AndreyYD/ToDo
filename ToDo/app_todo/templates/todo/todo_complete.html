@@ -1,41 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ToDo</title>
-</head>
-<body>
-    {% extends 'todo/base.html' %}
-    {% block content %}
-    <ul>
-        <li>
-            <h4>{{ todo.title }}</h4>
-        </li>
-        <li>
-            <h4>{{ todo.description|linebreaks }}</h4>
-        </li>
-        <li>
-            <h4>{{ todo.important }}</h4>
-        </li>
-        <li>
-            <h4>{{ todo.date_created}}</h4>
-        </li>
-        <li>
-            <h4>{{ todo.date_completed}}</h4>
-        </li>
-            <ul>
-                <li>
-                    <form  method="POST" action="{% url 'delete_todo' todo.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Delete</button>
-                    </form>
-                </li>
-                <li>
-                    <button type="submit" onclick="history.back()">Back</button>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    {% endblock %}
-</body>
-</html>
+{% extends 'todo/base.html' %}
+{% block content %}
+
+<div class="container text-center" style="margin-top: 100px">
+    {% if todo.important %}
+    <h1 class="p-2 text-secondary">{{ todo.title }}</h1>
+    <h4 class="p-5 text-secondary">{{ todo.description|linebreaks }}</h4>
+    <h4 class="text-secondary">--IMPORTANT--</h4>
+    <h4 class="p-2 text-secondary">{{ todo.date_created}}</h4>
+    <h4 class="p-2 text-secondary">{{ todo.date_completed}}</h4>
+    <div class="d-flex justify-content-center">
+            {% csrf_token %}
+            <button class="btn btn-secondary text-white" type="submit" onclick="history.back()">Back</button>
+        <form  method="POST" action="{% url 'delete_todo' todo.id %}">
+            {% csrf_token %}
+            <button class="btn btn-secondary text-white ms-2" type="submit">Delete</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
